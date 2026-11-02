@@ -9,7 +9,11 @@ import questionsRouter from './routes/questions.js';
 import { registerSocketHandlers } from './socket/index.js';
 
 const PORT = process.env.PORT || 5001;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
+// Comma-separated list, e.g. "http://localhost:5173,https://my-app.vercel.app"
+const CLIENT_ORIGIN = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((o) => o.trim().replace(/\/+$/, ''))
+  .filter(Boolean);
 
 const app = express();
 app.use(cors({ origin: CLIENT_ORIGIN }));

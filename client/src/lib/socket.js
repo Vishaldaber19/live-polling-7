@@ -1,7 +1,8 @@
 import { io } from 'socket.io-client';
+import { API_URL } from './config.js';
 
-// Same origin; Vite proxies /socket.io to the server in dev
-export const socket = io({ autoConnect: false });
+// No API_URL → same origin (Vite proxies /socket.io in dev)
+export const socket = io(API_URL || undefined, { autoConnect: false });
 
 // Promise wrapper around emit-with-ack
 export function emitAck(event, payload) {

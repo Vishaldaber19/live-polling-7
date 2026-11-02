@@ -1,9 +1,11 @@
+import { API_URL } from './config.js';
+
 async function request(path, { method = 'GET', body, hostKey } = {}) {
   const headers = {};
   if (body !== undefined) headers['Content-Type'] = 'application/json';
   if (hostKey) headers['x-host-key'] = hostKey;
 
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`${API_URL}/api${path}`, {
     method,
     headers,
     body: body !== undefined ? JSON.stringify(body) : undefined,
